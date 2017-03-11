@@ -12,7 +12,7 @@ Glib::FindMinVersion - Find minimum version of GLib needed to compile C source
     use Glib::FindMinVersion;
 
     print Glib::FindMinVersion::with('g_get_num_processors'); # 2.36
-    print Glib::FindMinVersion::for_file('source.c'); # 2.18
+    print scalar Glib::FindMinVersion::for_file('source.c'); # 2.18
     my %symbols = Glib::FindMinVersion::for_file('source.c' => 2.10);
     # (
     #   2.18 => [qw[g_set_error_literal]],
