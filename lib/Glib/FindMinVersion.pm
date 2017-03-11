@@ -63,14 +63,12 @@ In scalar context, returns the maximum version in the list, which is the minimum
 
 =cut
 
-sub version_gt($$) {
+sub version_cmp($$) {
     my ($a, $b) = @_;
     my ($a_major, $a_minor) = $a =~ /(\d+)\.(\d+)/g;
     my ($b_major, $b_minor) = $b =~ /(\d+)\.(\d+)/g;
 
-    return 0 if $a_major < $b_major;
-    return 1 if $a_major > $b_major;
-    return $a_minor > $b_minor;
+    return $a_major <=> $b_major || $a_minor <=> $b_minor;
 }
 
 sub for_source {
@@ -82,10 +80,10 @@ sub for_source {
     my %version_of = map { ($_, $GLib_version_of{$_} // '0.0') } @symbols;
     my %versions;
     for (keys %version_of) {
-        push (@{ $versions{ $version_of{$_} } }, $_) if version_gt $version_of{$_}, $current_version;
+        push (@{ $versions{ $version_of{$_} } }, $_) if version_cmp($version_of{$_}, $current_version) == 1;
     }
 
-    return map { ($_, $versions{$_}) } reverse sort keys %versions;
+    return map { ($_, $versions{$_}) } reverse sort version_cmp keys %versions;
 }
 
 =item for_file($filename [, $version])
