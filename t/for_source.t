@@ -20,6 +20,11 @@ is +keys %versions, 2;
 %versions = Glib::FindMinVersion::for_source($src, '2.26');
 ok %versions == undef;
 
+my ($max_in_list) = Glib::FindMinVersion::for_source($src, '2.0');
+my $max_as_scalar = Glib::FindMinVersion::for_source($src, '2.0');
+
+is $max_in_list, $max_as_scalar;
+
 done_testing;
 
 __DATA__

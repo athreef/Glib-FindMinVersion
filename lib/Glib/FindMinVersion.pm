@@ -85,7 +85,7 @@ sub for_source {
         push (@{ $versions{ $version_of{$_} } }, $_) if version_gt $version_of{$_}, $current_version;
     }
 
-    return %versions;
+    return map { ($_, $versions{$_}) } reverse sort keys %versions;
 }
 
 =item for_file($filename [, $version])
