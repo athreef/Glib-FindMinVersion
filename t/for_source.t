@@ -17,6 +17,9 @@ is +@{$versions{'2.0'}}, 3;
 %versions = Glib::FindMinVersion::for_source($src, '2.0');
 is +keys %versions, 2;
 
+%versions = Glib::FindMinVersion::for_source($src, '2.26');
+ok %versions == undef;
+
 done_testing;
 
 __DATA__
