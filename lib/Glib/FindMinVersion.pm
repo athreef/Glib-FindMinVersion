@@ -1,5 +1,6 @@
 use strict;
 use warnings;
+use v5.10.0;
 package Glib::FindMinVersion;
 
 # ABSTRACT: Find minimum version of GLib needed to compile C source
